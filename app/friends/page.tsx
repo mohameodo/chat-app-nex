@@ -27,6 +27,17 @@ type FriendRequest = {
   fromUser?: UserProfile
 }
 
+interface ChatData {
+  participants: string[];
+  createdAt: Date;
+  lastMessage: any;
+  updatedAt?: Date;
+}
+
+interface Chat extends ChatData {
+  id: string;
+}
+
 export default function FriendsPage() {
   const { user } = useAuth()
   const router = useRouter()
@@ -95,7 +106,7 @@ export default function FriendsPage() {
     }
   }, [user])
 
-  const findExistingChat = async (userId1: string, userId2: string) => {
+  const findExistingChat = async (userId1: string, userId2: string): Promise<Chat | null> => {
     try {
       const chatsRef = collection(db, "chats")
       const q = query(
@@ -104,10 +115,10 @@ export default function FriendsPage() {
       )
       
       const querySnapshot = await getDocs(q)
-      let existingChat = null
+      let existingChat: Chat | null = null
 
       querySnapshot.forEach((doc) => {
-        const chatData = doc.data()
+        const chatData = doc.data() as ChatData
         if (chatData.participants.includes(userId2)) {
           existingChat = { id: doc.id, ...chatData }
         }
