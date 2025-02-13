@@ -25,7 +25,7 @@ export default function CreateChatPage() {
                 </div>
               </div>
               <button className="w-6 h-6 rounded-full border-2 border-blue-500 flex items-center justify-center">
-                <Check className="w-4 h-4 text-blue-500 group-[.selected]:block" />
+                <Check className="w-4 h-4 text-blue-500" />
               </button>
             </div>
           ))}

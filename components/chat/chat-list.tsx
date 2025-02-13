@@ -10,7 +10,7 @@ import { LoadingSpinner } from "@/components/ui/loading-spinner"
 import { useRouter } from "next/navigation"
 
 interface ChatData {
-  id: string;
+  chatId: string;
   participants: string[];
   lastMessage: {
     text: string;
