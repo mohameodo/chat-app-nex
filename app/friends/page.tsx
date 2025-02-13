@@ -38,7 +38,7 @@ type Chat = {
   }
 }
 
-export function ChatList() {
+export default function FriendsPage() {
   const { user } = useAuth()
   const [chats, setChats] = useState<Chat[]>([])
   const [loading, setLoading] = useState(true)
@@ -158,4 +158,3 @@ export function ChatList() {
     </div>
   )
 }
-
