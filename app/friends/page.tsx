@@ -147,23 +147,23 @@ export default function FriendsPage() {
           const userFriends = userDoc.data()?.friends || []
           const otherUserFriends = otherUserDoc.data()?.friends || []
   
-          // Update both users' friends lists
+          // Update both users' friends lists using Array methods instead of Set
           await updateDoc(doc(db, "users", user.uid), {
-            friends: [...new Set([...userFriends, request.from])]
+            friends: Array.from(new Set([...userFriends, request.from]))
           })
           await updateDoc(doc(db, "users", request.from), {
-            friends: [...new Set([...otherUserFriends, user.uid])]
+            friends: Array.from(new Set([...otherUserFriends, user.uid]))
           })
   
           // Create chat only if it doesn't exist
-          const existingChat = await findExistingChat(user.uid, request.from);
+          const existingChat = await findExistingChat(user.uid, request.from)
           if (!existingChat) {
-            const participants = [user.uid, request.from].sort();
+            const participants = [user.uid, request.from].sort()
             await addDoc(collection(db, "chats"), {
               participants,
               createdAt: new Date(),
               lastMessage: null
-            });
+            })
           }
         }
       }
