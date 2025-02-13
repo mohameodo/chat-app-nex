@@ -25,7 +25,7 @@ interface UserData {
 }
 
 type Chat = {
-  id: string
+  chatId: string
   participants: string[]
   lastMessage: {
     text: string
@@ -68,7 +68,7 @@ export function ChatList() {
 
               if (userData) {
                 return {
-                  id: docSnapshot.id,
+                  chatId: docSnapshot.id,
                   ...chatData,
                   otherUser: {
                     id: otherUserId,
@@ -126,8 +126,8 @@ export function ChatList() {
     <div className="space-y-2 p-4">
       {chats.map((chat) => (
         <Link
-          key={chat.id}
-          href={`/chat/${chat.id}`}
+          key={chat.chatId}
+          href={`/chat/${chat.chatId}`}
           className="flex items-center gap-4 p-4 rounded-lg bg-zinc-900/50 hover:bg-zinc-900 transition-colors"
         >
           <div className="relative">
@@ -158,4 +158,3 @@ export function ChatList() {
     </div>
   )
 }
-
