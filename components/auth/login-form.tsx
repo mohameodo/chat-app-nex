@@ -1,22 +1,20 @@
 "use client"
 
 import { useState } from 'react';
-import { auth } from '@/lib/firebase';
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 const LoginForm = () => {
   const router = useRouter();
+  const { signInWithGoogle } = useAuth();
   const [error, setError] = useState('');
 
   const handleGoogleSignIn = async () => {
     try {
-      const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-      router.push('/chat'); // Redirect to chat page after successful login
+      await signInWithGoogle();
+      router.push('/'); // Redirect to home page after successful login
     } catch (error) {
       setError('Failed to sign in with Google');
       console.error(error);
@@ -54,4 +52,3 @@ const LoginForm = () => {
 }
 
 export default LoginForm;
-
